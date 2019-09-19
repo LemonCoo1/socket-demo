@@ -2,6 +2,7 @@ package com.demo;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,7 +16,7 @@ public class Server extends Thread {
         ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket();
-            serverSocket.bind(new InetSocketAddress(8089));
+            serverSocket.bind(new InetSocketAddress("127.0.0.1",8089));
             System.out.println("服务器已启动");
             while (true) {
                 Socket socket = serverSocket.accept();

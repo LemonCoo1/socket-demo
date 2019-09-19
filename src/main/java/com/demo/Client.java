@@ -5,6 +5,7 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.json.JSONObject;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -15,9 +16,9 @@ import java.net.Socket;
 public class Client extends Thread{
 
     public static void main(String args[]) throws IOException {
-        Socket clientSocket = new Socket("127.0.0.1",8090);
+        Socket clientSocket = new Socket();
+        clientSocket.connect(new InetSocketAddress("127.0.0.1",8089));
         clientSocket.setKeepAlive(true);
-        new HeatThread(clientSocket).start();
         new SendThread(clientSocket).start();
 
         try {
@@ -28,33 +29,6 @@ public class Client extends Thread{
 
     }
 
-    static class HeatThread extends Thread{
-
-        Socket socket;
-        HeatThread(Socket socket){
-            this.socket = socket;
-        }
-
-        @Override
-        public void run() {
-            do {
-
-                if (!socket.isConnected()){
-                    try {
-
-                        System.out.println("服务器连接成功");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                try {
-                    Thread.sleep(5000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }while (true);
-        }
-    }
 
     static class SendThread extends Thread {
         Socket socket;

@@ -1,5 +1,9 @@
 package com.demo;
 
+import com.demo.server.ServerResponseThread;
+
+import java.net.Socket;
+
 /**
  * @author xucong
  * @date 2019/9/19
@@ -23,5 +27,11 @@ public class BytesUtil {
         bytes[2] = (byte)(num >>> 8);
         bytes[3] = (byte)num;
         return bytes;
+    }
+
+    public static void main(String[] args) {
+        byte[] bytes = BytesUtil.int2Bytes(2);
+
+        System.out.println();
     }
 }
